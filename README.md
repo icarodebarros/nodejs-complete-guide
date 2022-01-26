@@ -6,3 +6,8 @@ This project is based on the course project [NodeJS - The Complete Guide (MVC, R
 
 - master: the main branch;
 - sequelize: The initial first version of the project using MySQL/Sequelize instead of MongoDB/Mongoose like in the main branch.
+
+## Dependencies
+
+- Mongo database (The project uses a free cluster provided by cloud.mongodb.com);
+- [Sendgrid](https://sendgrid.com/) account to use as Mailer service;
