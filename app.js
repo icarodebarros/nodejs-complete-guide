@@ -1,13 +1,13 @@
 const path = require('path');
 
 const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
-const csrf = require('csurf');
-const flash = require('connect-flash');
-const multer = require('multer');
+const bodyParser = require('body-parser'); // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+const mongoose = require('mongoose'); // is a MongoDB object modeling tool designed to work in an asynchronous environment.
+const session = require('express-session'); // Session middleware. (Session data is not saved in the cookie itself, just the session ID. Session data is stored server-side).
+const MongoDBStore = require('connect-mongodb-session')(session); // MongoDB-backed session storage for connect and Express.
+const csrf = require('csurf'); // Node.js CSRF protection middleware.
+const flash = require('connect-flash'); // simple flash impletentarion for express. (puts info on session temporarily).
+const multer = require('multer'); // middleware for handling multipart/form-data, which is primarily used for uploading files.
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -50,12 +50,15 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());// requests with header 'application/json'
+app.use(bodyParser.urlencoded({ extended: false }));// requests with header 'x-www-form-urlencoded' (<form>)
+
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files (on 'localhost:3000/')
+app.use('/images', express.static(path.join(__dirname, 'images'))); // Serve static files (on 'localhost:3000/images')
+
 app.use(
   session({
     secret: 'my secret',
@@ -99,7 +102,7 @@ app.get('/500', errorController.get500);
 
 app.use(errorController.get404);
 
-app.use((error, req, res, next) => { // Middleware especial (4 parametros) para lidar com erros
+app.use((error, req, res, next) => { // Special middleware (4 params) to deal with erros
   // res.status(error.httpStatusCode).render(...);
   // res.redirect('/500');
   res.status(500).render('500', {
