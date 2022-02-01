@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 const express = require('express');
 const bodyParser = require('body-parser'); // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
@@ -10,6 +11,7 @@ const flash = require('connect-flash'); // simple flash impletentarion for expre
 const multer = require('multer'); // middleware for handling multipart/form-data, which is primarily used for uploading files.
 const helmet = require('helmet'); // Helmet helps you secure your Express apps by setting various HTTP headers.
 const compression = require('compression'); // The middleware will attempt to compress response bodies for all request that traverse through the middleware.
+const morgan = require('morgan'); // HTTP request logger middleware for node.js
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -52,8 +54,14 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+  { flags: 'a' } // a=append (It means new files will be appended, not overwriting existing file)
+);
+
 app.use(helmet());
 app.use(compression());
+app.use(morgan('combined', { stream: accessLogStream }));
 
 // app.use(bodyParser.json());// requests with header 'application/json'
 app.use(bodyParser.urlencoded({ extended: false }));// requests with header 'x-www-form-urlencoded' (<form>)
