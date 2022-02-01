@@ -4,6 +4,6 @@
         "MONGO_PASSWORD": "node-app",
         "MONGO_DEFAULT_DATABASE": "shop",
 
-        "SENDGRID_API_KEY": "<insert key>"
+        "SENDGRID_API_KEY": "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"
     }
 }
