@@ -13,7 +13,7 @@ const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const MONGODB_URI =
-  'mongodb+srv://node-app:node-app@cluster0.gafjw.mongodb.net/shop?w=majority';
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_USER}@cluster0.gafjw.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?w=majority`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -115,7 +115,7 @@ app.use((error, req, res, next) => { // Special middleware (4 params) to deal wi
 mongoose
   .connect(MONGODB_URI)
   .then(result => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch(err => {
     console.log(err);

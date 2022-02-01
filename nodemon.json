@@ -1,0 +1,9 @@
+{
+    "env": {
+        "MONGO_USER": "node-app",
+        "MONGO_PASSWORD": "node-app",
+        "MONGO_DEFAULT_DATABASE": "shop",
+
+        "SENDGRID_API_KEY": "<insert key>"
+    }
+}
