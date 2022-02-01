@@ -1,5 +1,7 @@
 # nodejs-complete-guide
 
+A simple shop app.
+
 This project is based on the course project [NodeJS - The Complete Guide (MVC, REST APIs, GraphQL, Deno)](https://www.udemy.com/course/nodejs-the-complete-guide/).
 
 ## Branches
