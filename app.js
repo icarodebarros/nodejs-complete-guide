@@ -17,7 +17,7 @@ const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const MONGODB_URI =
-  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_USER}@cluster0.gafjw.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?w=majority`;
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.gafjw.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?w=majority`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -31,7 +31,7 @@ const fileStorage = multer.diskStorage({
     cb(null, 'images');
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + '-' + file.originalname);
+    cb(null, new Date().toISOString().replaceAll(':', '_') + '-' + file.originalname);
   }
 });
 
